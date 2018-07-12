@@ -59,10 +59,10 @@ def main():
             print("平台暂时不支持")
 
 if __name__ == '__main__':
-    # print('#'*27, 'begin', '#'*27,)
-    # print('#')
-    # print('# Author: Chris')
-    # print('#')
-    # print('#'*61)
+    print('#'*27, 'begin', '#'*27,)
+    print('#')
+    print('# Author: Chris')
+    print('#')
+    print('#'*61)
     main()
-    # print('#'*28, 'end', '#'*28)
+    print('#'*28, 'end', '#'*28)
