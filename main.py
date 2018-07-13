@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 import requests
 from lxml import etree
@@ -46,17 +47,22 @@ def print_article(href):
 def main():
     """主函数
     """
-    for href in get_html(1):
-        # print(print_article(href))
-        sep = ""
-        sentence = sep.join(print_article(href))
-        new_sentence = sentence[2:-2]
-        if new_sentence != "" and os.name == "nt":
-            os.system("cls")
-            print(new_sentence)
-            os.system("pause")
-        elif new_sentence !="" and os.name == "posix":
-            print("平台暂时不支持")
+    print("Press Ctrl + C will quit.")
+    try:
+        for href in get_html(1):
+            # print(print_article(href))
+            sep = ""
+            sentence = sep.join(print_article(href))
+            new_sentence = sentence[2:-2]
+            if new_sentence != "" and os.name == "nt":
+                os.system("pause")
+                os.system("cls")
+                print(new_sentence)
+            elif new_sentence != "" and os.name == "posix":
+                print("平台暂时不支持")
+    except KeyboardInterrupt:
+        sys.exit()
+
 
 if __name__ == '__main__':
     print('#'*27, 'begin', '#'*27,)
