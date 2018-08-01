@@ -5,12 +5,6 @@ import sys
 import requests
 from lxml import etree
 
-# 参数
-GROUP_START = 1
-GROUP_END = 8
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DIST_DIR = os.path.join(BASE_DIR, "dist")
-
 
 def get_html(page):
     """获取网页源代码
@@ -65,10 +59,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print('#'*27, 'begin', '#'*27,)
-    print('#')
-    print('# Author: Chris')
-    print('#')
-    print('#'*61)
     main()
-    print('#'*28, 'end', '#'*28)
