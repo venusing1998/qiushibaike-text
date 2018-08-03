@@ -17,8 +17,8 @@ def get_html(page):
         if response.status_code == 200:
             result = response.text
             return result
-    except requests.ConnectionError:
-        return None
+    except requests.ConnectionError as e:
+        print(e)
 
 
 def get_data(html):
