@@ -45,15 +45,16 @@ def main():
     try:
         for href in get_html(1):
             # print(print_article(href))
-            sep = ""
-            sentence = sep.join(print_article(href))
+            sentence = "".join(print_article(href))
             new_sentence = sentence[2:-2]
             if new_sentence != "" and os.name == "nt":
                 os.system("pause")
                 os.system("cls")
-                print(new_sentence)
             elif new_sentence != "" and os.name == "posix":
-                print("平台暂时不支持")
+                os.system("echo Press any key to continue . . .")
+                os.system("read -n 1")
+                os.system("clear")
+            print(new_sentence)
     except KeyboardInterrupt:
         sys.exit()
 
