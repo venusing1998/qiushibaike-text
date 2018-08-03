@@ -1,6 +1,4 @@
 import json
-import os
-import sys
 
 import requests
 from lxml import etree
@@ -17,22 +15,29 @@ def get_html(page):
     try:
         response = requests.get(new_url, headers=headers)
         if response.status_code == 200:
-            html = response.text
-            tree = etree.HTML(html)
-            result = tree.xpath(
-                '//*[@id="content-left"]/div/a[@class="contentHerf"]/@href')
+            result = response.text
             return result
     except requests.ConnectionError:
         return None
 
 
+def get_data(html):
+    """得到每篇文章的链接
+
+    """
+    tree = etree.HTML(html)
+    result = tree.xpath(
+        '//*[@id="content-left"]/div/a[@class="contentHerf"]/@href')
+    return result
+
+
 def print_article(href):
-    """文章
+    """打印文章
 
     """
     article_url = "https://www.qiushibaike.com" + href
     response = requests.get(article_url)
-    html = response.content.decode("utf-8")
+    html = response.text
     tree = etree.HTML(html)
     result = tree.xpath('//*[@id="single-next-link"]/div//text()')
     return result
@@ -41,22 +46,14 @@ def print_article(href):
 def main():
     """主函数
     """
-    print("Press Ctrl + C will quit.")
-    try:
-        for href in get_html(1):
-            # print(print_article(href))
-            sentence = "".join(print_article(href))
-            new_sentence = sentence[2:-2]
-            if new_sentence != "" and os.name == "nt":
-                os.system("pause")
-                os.system("cls")
-            elif new_sentence != "" and os.name == "posix":
-                os.system("echo Press any key to continue . . .")
-                os.system("read -n 1")
-                os.system("clear")
-            print(new_sentence)
-    except KeyboardInterrupt:
-        sys.exit()
+    html = get_html(1)
+    count = 1
+    for href in get_data(html):
+        # print(print_article(href))
+        sentence = "".join(print_article(href))
+        new_sentence = sentence[2:-2]
+        print("Article", count, " :\n", new_sentence, "\n\n", sep="")
+        count += 1
 
 
 if __name__ == '__main__':
