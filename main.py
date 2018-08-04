@@ -19,6 +19,7 @@ def get_html(page):
             return result
     except requests.ConnectionError as e:
         print(e)
+        return None
 
 
 def get_data(html):
